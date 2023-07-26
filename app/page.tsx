@@ -1,7 +1,10 @@
 import NavBar from "@/components/Navbar";
+import Invite from "@/components/utils/invite-url";
 import MainBtn from "@/components/utils/main-btn";
+import SecondaryButton from "@/components/utils/secondary-button";
 import "@/public/css/global.css";
 import Image from "next/image";
+import Link from "next/link";
 
 const Page = () => {
   return (
@@ -22,7 +25,14 @@ const Page = () => {
               </p>
               <div className="w-[212px] h-[212px] bg-main rad rounded-full absolute top-[50%] blur-[150px] blur-effect z-[-1]"></div>
 
-              <MainBtn className="mt-5">Invite</MainBtn>
+              <div className="mt-5">
+                <Invite>
+                  <MainBtn className="mt-5">Invite</MainBtn>
+                </Invite>
+                <Link href="/dashboard">
+                  <SecondaryButton className="ms-7">Dashboard</SecondaryButton>
+                </Link>
+              </div>
             </div>
             <div className="flex justify-center md:justify-end">
               <Image

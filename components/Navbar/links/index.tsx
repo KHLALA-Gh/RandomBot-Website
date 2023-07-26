@@ -6,10 +6,10 @@ export default function NavLinks() {
       <div>
         <div className="items-center gap-10 lg:gap-20 sm:flex hidden">
           <Link
-            href="/"
+            href="/invite"
             className="text-main font-bold text-lg hover:text-white duration-300"
           >
-            Home
+            Invite
           </Link>
           <Link
             href="/dashboard"
