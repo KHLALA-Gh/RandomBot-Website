@@ -1,3 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: Main;
+  src: url(../fonts/Inter-Bold.ttf);
+}
+
+body {
+  background-color: black;
+  color: white;
+}
+@layer components {
+  .cont {
+    @apply container lg:mx-[160px] md:mx-[75px] w-[auto];
+  }
+}
+
+.blur-effect {
+  animation: blur-anim 15s infinite alternate ease-in;
+}
+
+@keyframes blur-anim {
+  from {
+    width: 212px;
+    height: 212px;
+  }
+  to {
+    width: 275px;
+    height: 275px;
+  }
+}
