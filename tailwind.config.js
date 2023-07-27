@@ -22,6 +22,9 @@ module.exports = {
       fontFamily: {
         main: "Main",
       },
+      dropShadow: {
+        main: "0 0 1rem rgb(20 255 0 / 25%)",
+      },
     },
   },
   plugins: [],

@@ -1,3 +1,4 @@
+import Doc from "@/components/Doc";
 import NavBar from "@/components/Navbar";
 import Feature from "@/components/feature";
 import Invite from "@/components/utils/invite-url";
@@ -82,6 +83,26 @@ const Page = () => {
               buttonContent="Repo"
               buttonLink=""
             />
+          </div>
+          <div className="mt-32">
+            <h1 className="text-center text-[48px] text-main">Docs</h1>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-10 mt-10 p-7">
+              <Doc
+                redirect="/docs#configs"
+                title="How to configure RandomBot"
+                img="/img/config.svg"
+              />
+              <Doc
+                redirect="/docs#create_quizgame"
+                title="How to create a quiz game"
+                img="/img/cr_game.svg"
+              />
+              <Doc
+                redirect="/docs#cr_rnd"
+                title="How to make your own RandomBot"
+                img="/img/src.svg"
+              />
+            </div>
           </div>
         </div>
       </div>
