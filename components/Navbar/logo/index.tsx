@@ -7,7 +7,7 @@ export default function NavLogo() {
       <div>
         <Link href="/" className="flex items-center font-bold">
           <Image width={48} height={48} src="/img/rnd.png" alt="RandomBot" />
-          <h1 className="ps-3 text-2xl">RandomBot</h1>
+          <h1 className="ps-3 sm:text-2xl text-lg">RandomBot</h1>
         </Link>
       </div>
     </>

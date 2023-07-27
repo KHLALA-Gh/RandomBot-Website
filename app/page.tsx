@@ -10,12 +10,12 @@ import Link from "next/link";
 const Page = () => {
   return (
     <>
-      <div className="h-screen relative">
+      <div className="sm:h-screen relative">
         <NavBar />
 
         <div className="cont h-[calc(100vh-128px)]">
-          <div className="grid h-full w-full items-center justify-cenetr grid-cols-1 md:grid-cols-2">
-            <div className="relative md:text-left text-center">
+          <div className="grid h-full w-full items-center justify-cenetr grid-cols-1 lg:grid-cols-2">
+            <div className="relative lg:text-left text-center sm:mb-0 mb-16">
               <h1 className=" font-bold lg:text-[64px] sm:text-[56px] text-[48px]">
                 RandomBot
               </h1>
@@ -31,11 +31,13 @@ const Page = () => {
                   <MainBtn className="mt-5">Invite</MainBtn>
                 </Invite>
                 <Link href="/dashboard">
-                  <SecondaryButton className="ms-7">Dashboard</SecondaryButton>
+                  <SecondaryButton className="md:inline-block hidden md:ms-7 ms-0 lg:mt-0 mt-5">
+                    Dashboard
+                  </SecondaryButton>
                 </Link>
               </div>
             </div>
-            <div className="flex justify-center md:justify-end">
+            <div className="hidden justify-center md:justify-end lg:flex">
               <Image
                 width={450}
                 height={350}

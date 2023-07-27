@@ -23,18 +23,20 @@ export default function Feature({
   buttonContent,
 }: FeatureProps) {
   const arr: JSX.Element[] = [
-    <div key={0} className="p-16 flex items-center">
-      <div>
+    <div key={0} className="md:p-16 p-7 flex items-center w-full">
+      <div className="w-full">
         <h1 className="text-[32px]">{title}</h1>
         <p className="text-sleep mt-3">{description}</p>
         {(!buttonType || buttonType === "Main") && (
           <Link href={buttonLink || "/invite"} className="mt-10">
-            <MainBtn className="mt-10">{buttonContent || "Invite"}</MainBtn>
+            <MainBtn className="mt-10 lg:w-auto w-full">
+              {buttonContent || "Invite"}
+            </MainBtn>
           </Link>
         )}
         {buttonType === "Secondary" && (
           <Link href={buttonLink || "/invite"}>
-            <SecondaryButton className="mt-10">
+            <SecondaryButton className="mt-10 lg:w-auto w-full">
               {buttonContent || "Invite"}
             </SecondaryButton>
           </Link>
@@ -53,13 +55,18 @@ export default function Feature({
   ];
   return (
     <>
-      <div className="grid grid-cols-2 gap-16 mt-36">
+      <div className="grid lg:hidden grid-cols-1 gap-16 mt-36">
+        {arr.reverse().map((e) => {
+          return e;
+        })}
+      </div>
+      <div className="lg:grid hidden grid-cols-2 gap-16 mt-36 ">
         {direction === "left" &&
-          arr.map((e) => {
+          arr.reverse().map((e) => {
             return e;
           })}
         {direction === "right" &&
-          arr.reverse().map((e) => {
+          arr.map((e) => {
             return e;
           })}
       </div>
