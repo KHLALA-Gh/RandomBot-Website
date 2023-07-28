@@ -25,8 +25,10 @@ export default function Feature({
   const arr: JSX.Element[] = [
     <div key={0} className="md:p-16 p-7 flex items-center w-full">
       <div className="w-full">
-        <h1 className="text-[32px]">{title}</h1>
-        <p className="text-sleep mt-3">{description}</p>
+        <h1 className="text-[32px] text-center lg:text-left">{title}</h1>
+        <p className="text-sleep mt-3 text-center lg:text-left">
+          {description}
+        </p>
         {(!buttonType || buttonType === "Main") && (
           <Link href={buttonLink || "/invite"} className="mt-10">
             <MainBtn className="mt-10 lg:w-auto w-full">

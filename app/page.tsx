@@ -115,11 +115,13 @@ const Page = () => {
             <h1 className="sm:text-[48px] text-[32px] text-black text-center">
               Make your Discord server more fun
             </h1>
-            <Invite>
-              <MainBtn className="!bg-black !text-main translate-x-[-50%] ms-[50%] mt-10">
-                Invite
-              </MainBtn>
-            </Invite>
+            <div className="overflow-hidden">
+              <Invite>
+                <MainBtn className="!bg-black !text-main translate-x-[-50%] ms-[50%] mt-10">
+                  Invite
+                </MainBtn>
+              </Invite>
+            </div>
           </div>
         </div>
         <footer className="bg-black">
