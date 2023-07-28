@@ -5,17 +5,18 @@ import Invite from "@/components/utils/invite-url";
 import MainBtn from "@/components/utils/main-btn";
 import SecondaryButton from "@/components/utils/secondary-button";
 import "@/public/css/global.css";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome/";
 import Image from "next/image";
 import Link from "next/link";
-
 const Page = () => {
   return (
     <>
-      <div className="sm:h-screen relative">
+      <div className="relative">
         <NavBar />
 
-        <div className="cont h-[calc(100vh-128px)]">
-          <div className="grid h-full w-full items-center justify-cenetr grid-cols-1 lg:grid-cols-2">
+        <div className="cont">
+          <div className="grid w-full items-center justify-cenetr grid-cols-1 lg:grid-cols-2 h-[calc(100vh-128px)]">
             <div className="relative lg:text-left text-center sm:mb-0 mb-16">
               <h1 className=" font-bold lg:text-[64px] sm:text-[56px] text-[48px]">
                 RandomBot
@@ -44,7 +45,6 @@ const Page = () => {
                 height={350}
                 alt="randoms"
                 src="/img/randoms.png"
-                className="w-[auto] h-[auto]"
               />
             </div>
           </div>
@@ -103,8 +103,51 @@ const Page = () => {
                 img="/img/src.svg"
               />
             </div>
+            <div className="flex justify-center mt-24 mb-24">
+              <Link href="/docs">
+                <SecondaryButton>Go To Docs</SecondaryButton>
+              </Link>
+            </div>
           </div>
         </div>
+        <div className="h-[400px] w-full bg-main mt-16 flex justify-center items-center">
+          <div>
+            <h1 className="sm:text-[48px] text-[32px] text-black text-center">
+              Make your Discord server more fun
+            </h1>
+            <Invite>
+              <MainBtn className="!bg-black !text-main translate-x-[-50%] ms-[50%] mt-10">
+                Invite
+              </MainBtn>
+            </Invite>
+          </div>
+        </div>
+        <footer className="bg-black">
+          <div className="md:flex block justify-between md:p-16 p-5">
+            <div className="md:translate-x-[0%] md:ms-[0%] ms-[50%] translate-x-[-50%]">
+              <Image
+                width={393}
+                height={43}
+                alt="logo"
+                src="/img/RandomX.svg"
+              />
+            </div>
+            <Link
+              className="md:translate-x-[0%] md:ms-[0%] ms-[50%] translate-x-[-50%]"
+              href="https://github.com/RandomX12/RandomBot"
+            >
+              <div className="">
+                <Image
+                  width={64}
+                  height={64}
+                  alt="github repo"
+                  src="/img/github.svg"
+                  className="md:translate-x-[0%] md:ms-[0%] ms-[50%] translate-x-[-50%] md:mt-0 mt-7"
+                />
+              </div>
+            </Link>
+          </div>
+        </footer>
       </div>
     </>
   );
