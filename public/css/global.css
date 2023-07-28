@@ -21,6 +21,15 @@ body {
   animation: blur-anim 15s infinite alternate ease-in;
 }
 
+.center-x {
+  transform: translateX(-50%);
+  margin-left: 50%;
+}
+.center-y {
+  transform: translateY(-50%);
+  margin-top: 50%;
+}
+
 @keyframes blur-anim {
   from {
     width: 212px;
