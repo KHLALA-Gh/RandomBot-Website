@@ -1,6 +1,7 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
-
 import { config } from "@fortawesome/fontawesome-svg-core";
+import { SessionProvider } from "next-auth/react";
+import Session from "@/components/Session";
 config.autoAddCss = false;
 export const metadata = {
   title: "RandomBot",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-main">{children}</body>
+      <body className="font-main">
+        <Session>{children}</Session>
+      </body>
     </html>
   );
 }

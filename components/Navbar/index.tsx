@@ -1,14 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import NavLinks from "./links";
 import NavLogo from "./logo";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import MobileLinks from "./links/mobile";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 export default function NavBar() {
   const [showLinks, setShowLinks] = useState<boolean>(false);
+  const { data: session } = useSession();
+
   return (
     <>
       <div
@@ -18,8 +22,21 @@ export default function NavBar() {
         }
       >
         <NavLogo />
-        <NavLinks />
-        <div className="sm:hidden block mr-5 relative">
+        <NavLinks session={session} />
+        <div className="lg:hidden flex items-center gap-5 mr-5 relative">
+          {session && (
+            <div className="block lg:hidden">
+              <Link href={"/dashboard"}>
+                <Image
+                  src={session?.user?.image || "/img/rnd.png"}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="rounded-full border-2 border-white"
+                />
+              </Link>
+            </div>
+          )}
           <FontAwesomeIcon
             icon={faChevronDown}
             className="cursor-pointer"
@@ -29,7 +46,7 @@ export default function NavBar() {
           />
         </div>
       </div>
-      {showLinks && <MobileLinks />}
+      {showLinks && <MobileLinks session={session} />}
     </>
   );
 }
