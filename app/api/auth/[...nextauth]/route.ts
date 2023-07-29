@@ -7,7 +7,9 @@ const handler: AuthOptions = NextAuth({
     Discord({
       clientId: process.env.DC_ID as string,
       clientSecret: process.env.DC_SECRET as string,
-      authorization: { params: { scope: "identify guilds" } },
+      authorization: {
+        params: { scope: "identify guilds email" },
+      },
     }),
   ],
   callbacks: {
