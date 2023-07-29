@@ -1,4 +1,4 @@
-interface Guilds {
+interface Guild {
   id: string;
   icon: string;
   name: string;

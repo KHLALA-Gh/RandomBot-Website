@@ -53,3 +53,14 @@ body {
     height: 275px;
   }
 }
+
+.loading {
+  background: linear-gradient(110deg, #2c2c2c 8%, #373737 18%, #2c2c2c 33%);
+  background-size: 200% 100%;
+  animation: 1s loading linear infinite;
+}
+@keyframes loading {
+  to {
+    background-position-x: -200%;
+  }
+}
