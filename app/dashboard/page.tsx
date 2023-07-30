@@ -13,9 +13,12 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const { data: session } = useSession();
   const router = useRouter();
-  if (!session) {
-    router.push("/login");
-  }
+  useEffect(() => {
+    if (!session) {
+      router.push("/login");
+    }
+  }, []);
+  console.log(session?.user.accessToken);
   const { data: guilds, error, isLoading } = useGuilds({ owner: true });
   return (
     <>

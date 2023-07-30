@@ -4,11 +4,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export function useGuild(guildId: string) {
-  const { data: session } = useSession();
+  const { data: session } = useSession({ required: true });
   const router = useRouter();
-  if (!session) {
-    router.push("/login");
-  }
   const [data, setData] = useState<Guild>();
   const [error, setError] = useState<string | null>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,8 +23,13 @@ export function useGuild(guildId: string) {
           }
         );
         const server: Guild = (data as Guild[]).filter(
-          (e) => e.id === guildId
+          (e) => e.id === guildId && e.owner
         )[0];
+        if (!server) {
+          setError(`Discord Server Not Found`);
+          setIsLoading(false);
+          return;
+        }
         server.icon = `https://cdn.discordapp.com/icons/${server.id}/${server.icon}.jpg`;
         if (isMounted) {
           setData(server);
@@ -43,7 +45,9 @@ export function useGuild(guildId: string) {
         }
       }
     };
-    fetchData();
-  }, []);
+    if (session) {
+      fetchData();
+    }
+  }, [session]);
   return { data, isLoading, error };
 }

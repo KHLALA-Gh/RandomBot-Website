@@ -81,7 +81,7 @@ const Page = () => {
               img="/img/src.svg"
               buttonType="Secondary"
               buttonContent="Repo"
-              buttonLink=""
+              buttonLink="https://github.com/RandomX12/RandomBot"
             />
           </div>
           <div className="mt-32">

@@ -1,11 +1,11 @@
 "use client";
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import MainBtn from "@/components/utils/main-btn";
 import { useGuild } from "@/hooks/discord-api/useGuild";
+import "@/public/css/global.css";
 import Image from "next/image";
+import DashboardNavBar from "@/components/Dashboard/NavBar";
 interface Props {
   searchParams: {
     id: string;
@@ -13,12 +13,15 @@ interface Props {
 }
 
 export default function Page({ searchParams }: Props) {
-  const { data: session } = useSession({ required: true });
   const { data, error: err, isLoading } = useGuild(searchParams.id);
 
   return (
     <>
-      {!err && <></>}
+      {!err && (
+        <>
+          <DashboardNavBar data={data} isLoading={isLoading} />
+        </>
+      )}
       {err && (
         <>
           <div className="w-full h-screen flex justify-center items-center">
