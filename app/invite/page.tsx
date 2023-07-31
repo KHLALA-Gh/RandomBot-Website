@@ -4,11 +4,17 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import "@/public/css/global.css";
-export default function Page() {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   const router = useRouter();
   useEffect(() => {
     router.push(
-      "https://discord.com/api/oauth2/authorize?client_id=1035666318613037217&permissions=8&scope=bot"
+      `https://discord.com/api/oauth2/authorize?client_id=1035666318613037217&permissions=8&scope=bot${Object.keys(
+        searchParams
+      ).map((e) => `&${e}=${searchParams[e]}`)}`
     );
   });
   return (
