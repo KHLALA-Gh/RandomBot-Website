@@ -48,6 +48,6 @@ export function useGuild(guildId: string) {
     if (session) {
       fetchData();
     }
-  }, [session]);
+  }, []);
   return { data, isLoading, error };
 }

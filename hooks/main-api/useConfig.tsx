@@ -6,11 +6,12 @@ export function useConfig(guildId: string) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>();
   useEffect(() => {
-    let isMounted = false;
+    let isMounted = true;
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const { data } = await axios.get(`/api/configs/${guildId}`);
+        console.log(data);
         if (isMounted) {
           setConfig(data);
           setError(null);
@@ -26,6 +27,6 @@ export function useConfig(guildId: string) {
       }
     };
     fetchData();
-  });
+  }, [guildId]);
   return { config, isLoading, error };
 }

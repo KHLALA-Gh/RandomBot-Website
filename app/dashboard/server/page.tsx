@@ -1,11 +1,9 @@
 "use client";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import MainBtn from "@/components/utils/main-btn";
-import { useGuild } from "@/hooks/discord-api/useGuild";
 import "@/public/css/global.css";
-import Image from "next/image";
 import DashboardNavBar from "@/components/Dashboard/NavBar";
+import { useServer } from "@/hooks/main-api/useServer";
 interface Props {
   searchParams: {
     id: string;
@@ -13,13 +11,16 @@ interface Props {
 }
 
 export default function Page({ searchParams }: Props) {
-  const { data, error: err, isLoading } = useGuild(searchParams.id);
-
+  const { server, error: err, isLoading } = useServer(searchParams.id);
   return (
     <>
       {!err && (
         <>
-          <DashboardNavBar data={data} isLoading={isLoading} />
+          <DashboardNavBar
+            data={server}
+            isLoading={isLoading || false}
+            config={server?.config}
+          />
         </>
       )}
       {err && (

@@ -1,4 +1,4 @@
-import { getServer, getServerByUser } from "@/lib/Servers";
+import { getServer, getGuildByUser } from "@/lib/Servers";
 import { getServerSession } from "next-auth";
 import { NextRequest } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
         { status: 404 }
       );
     }
-    const guild = await getServerByUser(
+    const guild = await getGuildByUser(
       session.user?.accessToken as string,
       serverId
     );

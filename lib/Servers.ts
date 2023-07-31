@@ -13,7 +13,7 @@ export async function getServer(guildId: string): Promise<Server> {
   return server as Server;
 }
 
-export async function getUserServers(accessToken: string): Promise<Guild[]> {
+export async function getUserGuilds(accessToken: string): Promise<Guild[]> {
   const { data } = await axios.get(
     `https://discord.com/api/v9/users/@me/guilds`,
     { headers: { Authorization: "Bearer " + accessToken } }
@@ -21,7 +21,10 @@ export async function getUserServers(accessToken: string): Promise<Guild[]> {
   return data as Guild[];
 }
 
-export async function getServerByUser(accessToken: string, guildId: string) {
-  const guilds = await getUserServers(accessToken);
+export async function getGuildByUser(
+  accessToken: string,
+  guildId: string
+): Promise<Guild | undefined> {
+  const guilds = await getUserGuilds(accessToken);
   return guilds.filter((e) => e.id === guildId)[0];
 }

@@ -18,7 +18,6 @@ export default function Page() {
       router.push("/login");
     }
   }, []);
-  console.log(session?.user.accessToken);
   const { data: guilds, error, isLoading } = useGuilds({ owner: true });
   return (
     <>

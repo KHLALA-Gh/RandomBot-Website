@@ -1,14 +1,14 @@
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faGamepad } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-interface CommandsProps {
-  commands?: Command[];
+interface QuizProps {
+  quiz: string[];
 }
 
-export default function Commands({ commands }: CommandsProps) {
+export default function Quiz({ quiz }: QuizProps) {
   const [open, setOpen] = useState<boolean>(false);
   const pathName = usePathname();
   const searchParams = useSearchParams();
@@ -16,9 +16,12 @@ export default function Commands({ commands }: CommandsProps) {
     <>
       <div className="relative">
         <div className="flex hover:bg-[#ffffff56] justify-between p-3 rounded-md cursor-pointer">
-          <div className="flex gap-5">
-            <h1 className="text-main w-[20px]">/</h1>
-            <h1 className="text-main">Commands</h1>
+          <div className="flex gap-5 items-center">
+            <FontAwesomeIcon
+              icon={faGamepad}
+              className={`w-[20px] text-main`}
+            />
+            <h1 className="text-main">Quiz</h1>
           </div>
           <div className="text-main" onClick={() => setOpen(!open)}>
             <FontAwesomeIcon
@@ -30,24 +33,23 @@ export default function Commands({ commands }: CommandsProps) {
         <div
           className={"w-[90%] center-x relative duration-300 overflow-hidden"}
         >
-          {commands?.map((e, i) => {
+          {quiz?.map((e, i) => {
+            if (e === "_id") return "";
             return (
               <div
                 key={i}
                 className={"center-x mt-1 mb-1 " + (!open ? "hidden" : "")}
               >
                 <Link
-                  href={`${pathName}?${searchParams.get("id")}/commands/${
-                    e.name
-                  }`}
+                  href={`${pathName}?id=${searchParams.get("id")}/quiz/${e}`}
                 >
                   <p
                     className={
                       "text-center text-sleep text-sm" +
-                      (pathName.replace("/", "") === e.name ? "text-white" : "")
+                      (pathName.replace("/", "") === e ? "text-white" : "")
                     }
                   >
-                    {e.name}
+                    {e}
                   </p>
                 </Link>
               </div>

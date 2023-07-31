@@ -1,18 +1,22 @@
+"use client";
 import Image from "next/image";
 import Commands from "./options/commands";
-
+import Quiz from "./options/quiz";
+import "./style.css";
 interface DashBoardNavBarProps {
-  data: Guild | undefined;
+  data?: Server & { guild?: Guild };
   isLoading: boolean;
+  config?: Config;
 }
 
 export default function DashboardNavBar({
   isLoading,
   data,
+  config,
 }: DashBoardNavBarProps) {
   return (
     <>
-      <div className="h-screen w-[350px] bg-[#35373C] rounded-r-md pt-7 ps-5 pr-5">
+      <div className="h-screen w-[350px] bg-[#35373C] rounded-r-md pt-7 ps-5 pr-5 relative pb-7  flex flex-col">
         <div>
           <div className="flex justify-center">
             <div
@@ -22,7 +26,11 @@ export default function DashboardNavBar({
               }
             >
               <Image
-                src={data?.icon || ""}
+                src={
+                  `https://cdn.discordapp.com/icons/${data?.serverId}/` +
+                    data?.guild?.icon +
+                    ".jpg" || ""
+                }
                 className={"rounded-full"}
                 alt=""
                 width={128}
@@ -39,7 +47,12 @@ export default function DashboardNavBar({
             {data?.name}
           </h1>
         </div>
-        <div className="rounded-md border-2  border-main"></div>
+        <div className="rounded-md border-2 mt-7 border-main p-5 flex-grow overflow-y-scroll op">
+          <div className="">
+            <Commands commands={config?.commands} />
+            <Quiz quiz={Object.keys(config?.quiz || {})} />
+          </div>
+        </div>
       </div>
     </>
   );
