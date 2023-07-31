@@ -1,6 +1,5 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import { SessionProvider } from "next-auth/react";
 import Session from "@/components/Session";
 config.autoAddCss = false;
 export const metadata = {

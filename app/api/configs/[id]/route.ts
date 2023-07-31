@@ -1,6 +1,6 @@
 import { getServer, getGuildByUser } from "@/lib/Servers";
 import { getServerSession } from "next-auth";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/route";
 export async function GET(req: NextRequest) {
   try {
@@ -24,6 +24,12 @@ export async function GET(req: NextRequest) {
       session.user?.accessToken as string,
       serverId
     );
+    if (!guild) {
+      return NextResponse.json(
+        { message: "404 : guild not found" },
+        { status: 404 }
+      );
+    }
     if (!guild.owner) {
       return new Response(
         JSON.stringify({

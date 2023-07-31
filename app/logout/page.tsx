@@ -6,8 +6,10 @@ import { useEffect } from "react";
 
 export default function Page() {
   const router = useRouter();
-  signOut({ redirect: false });
-  router.push("/");
+  useEffect(() => {
+    signOut({ redirect: false });
+    router.push("/");
+  }, []);
   return (
     <>
       <div className="flex justify-center items-center h-screen">

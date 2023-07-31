@@ -3,14 +3,19 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { useEffect } from "react";
+import "@/public/css/global.css";
 export default function Page() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
-  if (session) {
-    router.push("/dashboard");
-  } else {
-    signIn("discord");
-  }
+  useEffect(() => {
+    if (status === "loading") return;
+    if (session) {
+      router.push("/dashboard");
+    } else {
+      signIn("discord");
+    }
+  }, [status]);
   return (
     <>
       <div className="flex justify-center items-center h-screen w-full">
