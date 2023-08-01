@@ -1,15 +1,10 @@
-import { getServer } from "@/lib/Servers";
-import axios from "axios";
-import { NextRequest } from "next/server";
+import { getGeneralConfig } from "@/lib/Config";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    const commands = await axios.get(
-      "https://raw.githubusercontent.com/RandomX12/RandomBot/v0.5.1/config.json?token=GHSAT0AAAAAACFG6B6EDBEI4TV75KTGU7HUZGGOK4A"
-    );
-    return new Response(JSON.stringify(commands.data.commands), {
-      status: 200,
-    });
+    const config = await getGeneralConfig(require("@/package.json").randombotV);
+    return NextResponse.json(config, { status: 200 });
   } catch (err: any) {
     console.log(err);
     return new Response(

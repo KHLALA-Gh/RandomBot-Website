@@ -21,21 +21,31 @@ export default function DashboardNavBar({
           <div className="flex justify-center">
             <div
               className={
-                "flex justify-center rounded-full h-[128px] w-[128px] " +
+                "flex justify-center rounded-full h-[128px] w-[128px] relative border-2 border-white " +
                 (isLoading ? "loading" : "")
               }
             >
-              <Image
-                src={
-                  `https://cdn.discordapp.com/icons/${data?.serverId}/` +
-                    data?.guild?.icon +
-                    ".jpg" || ""
-                }
-                className={"rounded-full"}
-                alt=""
-                width={128}
-                height={128}
-              />
+              {data?.guild?.icon && (
+                <Image
+                  src={
+                    `https://cdn.discordapp.com/icons/${data?.serverId}/` +
+                      data?.guild?.icon +
+                      ".jpg" || ""
+                  }
+                  className={"rounded-full"}
+                  alt=""
+                  width={128}
+                  height={128}
+                />
+              )}
+              {!data?.guild?.icon && (
+                <h1 className="text-center center-y">
+                  {data?.name.split(" ").map((e, i) => {
+                    if (i > 2) return "";
+                    return e[0];
+                  })}
+                </h1>
+              )}
             </div>
           </div>
           <h1
