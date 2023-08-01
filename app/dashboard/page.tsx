@@ -5,7 +5,6 @@ import DiscordServerLoading from "@/components/Discord_Server/loading";
 import NavBar from "@/components/Navbar";
 import MainBtn from "@/components/utils/main-btn";
 import { useGuilds } from "@/hooks/discord-api/useGuilds";
-import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

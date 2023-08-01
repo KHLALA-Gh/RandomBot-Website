@@ -4,9 +4,7 @@ import Feature from "@/components/feature";
 import Invite from "@/components/utils/invite-url";
 import MainBtn from "@/components/utils/main-btn";
 import SecondaryButton from "@/components/utils/secondary-button";
-import "@/public/css/global.css";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome/";
+
 import Image from "next/image";
 import Link from "next/link";
 const Page = () => {

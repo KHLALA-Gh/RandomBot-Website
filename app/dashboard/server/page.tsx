@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import MainBtn from "@/components/utils/main-btn";
-import "@/public/css/global.css";
 import DashboardNavBar from "@/components/Dashboard/NavBar";
 import { useServer } from "@/hooks/main-api/useServer";
 interface Props {

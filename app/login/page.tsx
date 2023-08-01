@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useEffect } from "react";
-import "@/public/css/global.css";
 export default function Page() {
   const { data: session, status } = useSession();
   const router = useRouter();

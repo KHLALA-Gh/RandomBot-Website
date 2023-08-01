@@ -1,6 +1,7 @@
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Session from "@/components/Session";
+import "@/public/css/global.css";
 config.autoAddCss = false;
 export const metadata = {
   title: "RandomBot",

@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import "@/public/css/global.css";
 import MainBtn from "@/components/utils/main-btn";
 import Link from "next/link";
 import { useState } from "react";
