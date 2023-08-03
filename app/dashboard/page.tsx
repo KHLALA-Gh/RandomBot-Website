@@ -33,10 +33,11 @@ export default function Page() {
               <DiscordServerLoading />
             </>
           )}
-          {guilds?.map((e) => {
+          {guilds?.map((e, i) => {
             return (
               <>
                 <DiscordServer
+                  key={i}
                   name={e?.name}
                   img={
                     e.icon

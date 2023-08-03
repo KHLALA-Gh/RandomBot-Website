@@ -4,9 +4,9 @@ import Commands from "./options/commands";
 import Quiz from "./options/quiz";
 import "./style.css";
 interface DashBoardNavBarProps {
-  data?: Server & { guild?: Guild };
+  data?: Guild;
   isLoading: boolean;
-  config?: Config;
+  config?: GeneralConfig;
 }
 
 export default function DashboardNavBar({
@@ -25,21 +25,17 @@ export default function DashboardNavBar({
                 (isLoading ? "loading" : "")
               }
             >
-              {data?.guild?.icon && (
+              {data?.icon && (
                 <Image
-                  src={
-                    `https://cdn.discordapp.com/icons/${data?.serverId}/` +
-                      data?.guild?.icon +
-                      ".jpg" || ""
-                  }
+                  src={data.icon}
                   className={"rounded-full"}
                   alt=""
                   width={128}
                   height={128}
                 />
               )}
-              {!data?.guild?.icon && (
-                <h1 className="text-center center-y">
+              {!data?.icon && (
+                <h1 className="text-center center-y h-fit">
                   {data?.name.split(" ").map((e, i) => {
                     if (i > 2) return "";
                     return e[0];
@@ -59,8 +55,8 @@ export default function DashboardNavBar({
         </div>
         <div className="rounded-md border-2 mt-7 border-main p-5 flex-grow overflow-y-scroll op">
           <div className="">
-            <Commands commands={config?.commands} />
-            <Quiz quiz={Object.keys(config?.quiz || {})} />
+            <Commands commands={config?.commands as string[]} />
+            <Quiz quiz={[]} />
           </div>
         </div>
       </div>

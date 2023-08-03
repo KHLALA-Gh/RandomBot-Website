@@ -2,6 +2,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import Session from "@/components/Session";
 import "@/public/css/global.css";
+import ReactQueryProvider from "@/components/ReactQuery/index";
 config.autoAddCss = false;
 export const metadata = {
   title: "RandomBot",
@@ -15,8 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-main">
-        <Session>{children}</Session>
+      <body>
+        <Session>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </Session>
       </body>
     </html>
   );

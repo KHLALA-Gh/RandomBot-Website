@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 interface CommandsProps {
-  commands?: Command[];
+  commands?: string[];
 }
 
 export default function Commands({ commands }: CommandsProps) {
@@ -16,10 +16,16 @@ export default function Commands({ commands }: CommandsProps) {
     <>
       <div className="relative">
         <div className="flex hover:bg-[#ffffff56] justify-between p-3 rounded-md cursor-pointer">
-          <div className="flex gap-5">
-            <h1 className="text-main w-[20px]">/</h1>
-            <h1 className="text-main">Commands</h1>
-          </div>
+          <Link
+            href={`${
+              location.origin
+            }/dashboard/server/commands?id=${searchParams.get("id")}`}
+          >
+            <div className="flex gap-5">
+              <h1 className="text-main w-[20px]">/</h1>
+              <h1 className="text-main">Commands</h1>
+            </div>
+          </Link>
           <div className="text-main" onClick={() => setOpen(!open)}>
             <FontAwesomeIcon
               icon={faChevronDown}
@@ -37,17 +43,21 @@ export default function Commands({ commands }: CommandsProps) {
                 className={"center-x mt-1 mb-1 " + (!open ? "hidden" : "")}
               >
                 <Link
-                  href={`${pathName}?${searchParams.get("id")}/commands/${
-                    e.name
-                  }`}
+                  href={`${
+                    location.origin
+                  }/dashboard/server/commands/${e}?id=${searchParams.get(
+                    "id"
+                  )}`}
                 >
                   <p
                     className={
-                      "text-center text-sleep text-sm" +
-                      (pathName.replace("/", "") === e.name ? "text-white" : "")
+                      "text-center text-sleep text-sm " +
+                      (pathName.split("/").reverse()[0] === e
+                        ? "text-white"
+                        : "")
                     }
                   >
-                    {e.name}
+                    {e}
                   </p>
                 </Link>
               </div>
