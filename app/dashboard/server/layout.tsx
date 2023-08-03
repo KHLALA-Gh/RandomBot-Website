@@ -34,7 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       data={guild as Guild}
                       isLoading={configLoading && guildLoading}
                     />
-                    <div className="flex-grow lg:ps-20 lg:pr-20 pt-10 overflow-y-scroll">
+                    <div className="flex-grow lg:ps-20 lg:pr-20 pt-10 overflow-y-scroll relative">
                       {children}
                     </div>
                   </div>

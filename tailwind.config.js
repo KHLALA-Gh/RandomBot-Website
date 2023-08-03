@@ -18,6 +18,7 @@ module.exports = {
       colors: {
         main: "#14FF00",
         sleep: "#AEAEAE",
+        dc: "#35373C",
       },
       fontFamily: {
         main: "Main",
