@@ -22,6 +22,11 @@ export async function GET(req: NextRequest) {
         { message: "404 : guild not found" },
         { status: 404 }
       );
+    if (!guild.owner)
+      return NextResponse.json(
+        { message: "401 : unauthorized" },
+        { status: 401 }
+      );
     return NextResponse.json(guild, { status: 200 });
   } catch (err: any) {
     if (err instanceof AxiosError)

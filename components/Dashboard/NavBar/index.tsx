@@ -3,6 +3,9 @@ import Image from "next/image";
 import Commands from "./options/commands";
 import Quiz from "./options/quiz";
 import "./style.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 interface DashBoardNavBarProps {
   data?: Guild;
   isLoading: boolean;
@@ -14,6 +17,7 @@ export default function DashboardNavBar({
   data,
   config,
 }: DashBoardNavBarProps) {
+  const router = useRouter();
   return (
     <>
       <div className="h-screen w-[350px] bg-[#35373C] rounded-r-md pt-7 ps-5 pr-5 relative pb-7  flex flex-col">
@@ -58,6 +62,15 @@ export default function DashboardNavBar({
             <Commands commands={config?.commands as string[]} />
             <Quiz quiz={[]} />
           </div>
+        </div>
+        <div
+          className="bg-red-600 rounded-md text-white p-2 mt-5 cursor-pointer"
+          onClick={() => router.push("/dashboard")}
+        >
+          <h3 className="text-sm">
+            <FontAwesomeIcon icon={faRightFromBracket} className="mr-5" /> Leave
+            this dashboard
+          </h3>
         </div>
       </div>
     </>

@@ -1,9 +1,11 @@
 export default function Switch({
   enable,
   onClick,
+  disabled,
 }: {
   enable: boolean;
   onClick?: () => any;
+  disabled?: boolean;
 }) {
   return (
     <>
@@ -11,7 +13,8 @@ export default function Switch({
         onClick={onClick}
         className={
           "w-[63px] h-[26px] duration-300 relative rounded-full cursor-pointer " +
-          (enable ? "bg-main" : "bg-red-600")
+          (enable && !disabled ? "bg-main" : "bg-red-600") +
+          (disabled ? " bg-[#565656] loading cursor-default" : "")
         }
       >
         <div

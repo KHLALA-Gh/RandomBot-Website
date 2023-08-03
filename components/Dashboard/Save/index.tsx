@@ -1,13 +1,16 @@
 import MainBtn from "@/components/utils/main-btn";
 import "./style.css";
+import Loading from "@/components/utils/loading";
 export default function Save({
   show,
   reset,
   save,
+  isLoading,
 }: {
   show: boolean;
   reset: () => any;
   save: () => any;
+  isLoading: boolean;
 }) {
   return (
     <>
@@ -23,7 +26,14 @@ export default function Save({
             Reset
           </h1>
           <div onClick={save}>
-            <MainBtn>Save</MainBtn>
+            {isLoading && (
+              <>
+                <div className="h-[30px] overflow-hidden relative">
+                  <Loading />
+                </div>
+              </>
+            )}
+            {!isLoading && <MainBtn disabled={isLoading}>Save</MainBtn>}
           </div>
         </div>
       </div>

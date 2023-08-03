@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { connectDB } from "./connectDB";
 import axios from "axios";
 
-export async function getServer(guildId: string): Promise<Server> {
+export async function getServer(guildId: string): Promise<Server | undefined> {
   if (!mongoose.connection.db) {
     await connectDB();
   }
@@ -10,7 +10,7 @@ export async function getServer(guildId: string): Promise<Server> {
     .collection("discord servers")
     .findOne({ serverId: guildId });
   //@ts-ignore
-  return server as Server;
+  return server as Server | undefined;
 }
 
 export async function getUserGuilds(accessToken: string): Promise<Guild[]> {
@@ -27,4 +27,13 @@ export async function getGuildByUser(
 ): Promise<Guild | undefined> {
   const guilds = await getUserGuilds(accessToken);
   return guilds.filter((e) => e.id === guildId)[0];
+}
+
+export async function updateServer(id: string, server: Server) {
+  if (mongoose.connection.db) {
+    await connectDB();
+  }
+  await mongoose.connection.db
+    .collection("discord servers")
+    .updateOne({ serverId: id }, { $set: { ...server } });
 }

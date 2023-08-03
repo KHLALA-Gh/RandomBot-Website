@@ -18,7 +18,7 @@ export default function Commands({ commands }: CommandsProps) {
         <div className="flex hover:bg-[#ffffff56] justify-between p-3 rounded-md cursor-pointer">
           <Link
             href={`${
-              location.origin
+              location?.origin
             }/dashboard/server/commands?id=${searchParams.get("id")}`}
           >
             <div className="flex gap-5">
@@ -44,7 +44,7 @@ export default function Commands({ commands }: CommandsProps) {
               >
                 <Link
                   href={`${
-                    location.origin
+                    location?.origin
                   }/dashboard/server/commands/${e}?id=${searchParams.get(
                     "id"
                   )}`}
