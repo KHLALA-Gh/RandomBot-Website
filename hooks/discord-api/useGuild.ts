@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export function useGuild(guildId: string) {
   return useQuery({
+    refetchInterval: false,
     queryKey: ["guild", guildId],
     queryFn: async () => {
       const { data } = await axios.get(`/api/guilds/${guildId}`);

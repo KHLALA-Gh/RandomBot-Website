@@ -6,6 +6,7 @@ import { useGeneralConfig } from "@/hooks/main-api/useGeneralConfig";
 import { useSearchParams } from "next/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MainBtn from "@/components/utils/main-btn";
+import { AxiosError } from "axios";
 const client = new QueryClient();
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -47,12 +48,20 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       <div className="relative">
                         <h1 className="text-center">
                           An error occurred cannot load the server dashboard
+                          <br />
+                          {
+                            (
+                              (guildError as AxiosError).response?.data as {
+                                message: string;
+                              }
+                            )?.message
+                          }
                         </h1>
                         <div
                           className="center-x"
                           onClick={() => window.location.reload()}
                         >
-                          <MainBtn className="bg-red-600">refresh</MainBtn>
+                          <MainBtn className="bg-red-600 mt-5">refresh</MainBtn>
                         </div>
                       </div>
                     </div>
