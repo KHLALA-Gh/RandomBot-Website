@@ -37,8 +37,8 @@ export async function GET(req: NextRequest) {
   } catch (err: any) {
     if (err instanceof AxiosError) {
       return NextResponse.json(
-        { message: `${err.code} : ${err.message}` },
-        { status: +(err.code || 500) }
+        { message: `${err.response?.status} : ${err.message}` },
+        { status: +(err.response?.status || 500) }
       );
     }
     return NextResponse.json(
