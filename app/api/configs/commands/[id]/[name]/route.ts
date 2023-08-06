@@ -91,6 +91,7 @@ export async function POST(req: NextRequest) {
             { status: 400 }
           );
         await updateCommandConfig(server.serverId, commandName, body.command);
+        body.command.name = commandName;
         return NextResponse.json(body.command, { status: 200 });
       }
     }
