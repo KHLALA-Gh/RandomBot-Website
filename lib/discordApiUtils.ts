@@ -16,3 +16,35 @@ export async function getCommands(): Promise<DiscordAPICommand[]> {
   );
   return response.data as DiscordAPICommand[];
 }
+
+/**
+ * Get guild roles from discord api using the bot token from .env
+ * @param guildId discord server id
+ */
+export async function getGuildRoles(guildId: string): Promise<Role> {
+  const res = await axios.get(
+    `https://discord.com/api/guilds/${guildId}/roles`,
+    {
+      headers: {
+        Authorization: `Bot ${process.env.TOKEN}`,
+      },
+    }
+  );
+  return res.data as Role;
+}
+/**
+ * Get guild memebers from discord api using the bot token from .env
+ * @param guildId discord server id
+ */
+export async function getGuildMembers(guildId: string): Promise<Member[]> {
+  if (!process.env.TOKEN) throw new Error(`Bot TOKEN is required`);
+  const res = await axios.get(
+    `https://discord.com/api/guilds/${guildId}/members?limit=1000`,
+    {
+      headers: {
+        Authorization: `Bot ${process.env.TOKEN}`,
+      },
+    }
+  );
+  return res.data as Member[];
+}

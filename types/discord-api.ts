@@ -59,3 +59,29 @@ declare const PermissionFlagsBits: {
    */
   readonly UseExternalSounds: bigint;
 };
+
+interface Role {
+  id: string;
+  name: string;
+  description: string;
+  color: number;
+  [key: string]: any;
+}
+
+interface User {
+  id: string;
+  username: string;
+  avatar: string;
+  discriminator: string;
+  bot: boolean;
+  [key: string]: any;
+}
+
+interface Member {
+  avatart?: string;
+  joined_at: string;
+  nick?: string;
+  roles: string[];
+  [key: string]: any;
+  user: User;
+}
