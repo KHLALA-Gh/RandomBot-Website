@@ -3,7 +3,7 @@ import Image from "next/image";
 import MainBtn from "@/components/utils/main-btn";
 import Link from "next/link";
 import { useState } from "react";
-export default function NotFount() {
+export default function NotFound() {
   const [imgLink, setImgLink] = useState("/img/rnd_bored.png");
   return (
     <div className="w-full flex h-screen justify-center items-center">
