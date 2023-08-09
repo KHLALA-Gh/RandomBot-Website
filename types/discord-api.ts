@@ -85,3 +85,9 @@ interface Member {
   [key: string]: any;
   user: User;
 }
+
+interface AllGuildInfo extends Guild {
+  roles: Role[];
+  members: Member[];
+  commands: CommandConfig[];
+}

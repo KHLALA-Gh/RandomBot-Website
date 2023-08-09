@@ -2,18 +2,26 @@
 import Command from "@/components/Dashboard/command";
 import LoadingCommand from "@/components/Dashboard/command/loading";
 import Save from "@/components/Dashboard/Save";
-import { useServerCommands } from "@/hooks/main-api/useServerCommands";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import Link from "next/link";
+import { DashboardContext } from "../layout";
 export default function Page() {
   const searchParams = useSearchParams();
-  const { data, isLoading, error, refetch } = useServerCommands(
-    searchParams.get("id") as string
-  );
+  const { data, isLoading, error, update, fetch } = useContext(
+    DashboardContext
+  ) as {
+    data: AllGuildInfo;
+    isLoading: boolean;
+    error?: AxiosError;
+    update: any;
+    fetch: () => any;
+  };
+  const [currentCommands, setCurrentCommands] = useState<Command[]>();
   const [loading, setLoading] = useState(isLoading);
-  const [commands, setCommands] = useState(data);
+  const [commands, setCommands] = useState<Command[]>();
   const [isChanged, setIsChanged] = useState<boolean>();
   const mutation = useMutation({
     mutationKey: ["commands", searchParams.get("id")],
@@ -28,11 +36,11 @@ export default function Page() {
   });
   const compare = () => {
     if (data && commands) {
-      for (let i = 0; i < (data?.length as number); i++) {
+      for (let i = 0; i < (currentCommands?.length as number); i++) {
         for (let j = 0; j < (commands?.length as number); j++) {
           if (
-            commands[j].name === data[j].name &&
-            commands[j].enable !== data[j].enable
+            commands[j].name === (currentCommands as Command[])[j]?.name &&
+            commands[j].enable !== (currentCommands as Command[])[j]?.enable
           ) {
             setIsChanged(true);
             return;
@@ -43,26 +51,53 @@ export default function Page() {
     }
   };
   const reset = () => {
-    setCommands(data);
+    setCommands(currentCommands);
   };
   const save = () => {
     setLoading(true);
     mutation.mutate();
-    setTimeout(refetch, 1000);
   };
   useEffect(() => {
     if (!isLoading) {
-      setLoading(false);
-      setCommands(data);
+      setTimeout(() => {
+        const commands: Command[] = data?.commands?.map((c) => {
+          return {
+            name: c.name,
+            enable: c.enable,
+          };
+        });
+        setCurrentCommands([...commands]);
+        setCommands([...commands]);
+        setLoading(false);
+      }, 500);
     }
   }, [data]);
   useEffect(() => {
     compare();
   }, [commands]);
+  useEffect(() => {
+    if (mutation.data) {
+      update({
+        ...data,
+        commands: mutation.data?.data,
+      });
+    }
+  }, [mutation.data]);
+  useEffect(() => {
+    setLoading(true);
+    setCurrentCommands([]);
+    setCommands([]);
+    fetch();
+  }, []);
   return (
     <>
-      <div>
+      <div className="lg:p-0 p-5">
         <>
+          <Link
+            href={`/dashboard/server/commands?id=${searchParams.get("id")}`}
+          >
+            <h1 className="text-[40px] mb-16 text-main ms-0">Commands</h1>
+          </Link>
           {commands?.map((e, i) => {
             return (
               <Command
@@ -86,7 +121,7 @@ export default function Page() {
               />
             );
           })}
-          {isLoading && (
+          {loading && (
             <>
               <LoadingCommand />
               <LoadingCommand />

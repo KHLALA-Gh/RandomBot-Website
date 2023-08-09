@@ -15,18 +15,23 @@ export default function Commands({ commands }: CommandsProps) {
   return (
     <>
       <div className="relative">
-        <div className="flex hover:bg-[#ffffff56] justify-between p-3 rounded-md cursor-pointer">
+        <div className="flex hover:bg-[#ffffff56] justify-center md:justify-between md:p-3 rounded-md cursor-pointer">
           <Link
             href={`${
               location?.origin
             }/dashboard/server/commands?id=${searchParams.get("id")}`}
           >
             <div className="flex gap-5">
-              <h1 className="text-main w-[20px]">/</h1>
-              <h1 className="text-main">Commands</h1>
+              <h1 className="text-main md:w-[20px] md:text-left text-center md:text-[16px] text-[30px]">
+                /
+              </h1>
+              <h1 className="text-main md:block hidden">Commands</h1>
             </div>
           </Link>
-          <div className="text-main" onClick={() => setOpen(!open)}>
+          <div
+            className="text-main md:block hidden"
+            onClick={() => setOpen(!open)}
+          >
             <FontAwesomeIcon
               icon={faChevronDown}
               className={`duration-300 ${open ? "rotate-180" : ""}`}
@@ -34,7 +39,9 @@ export default function Commands({ commands }: CommandsProps) {
           </div>
         </div>
         <div
-          className={"w-[90%] center-x relative duration-300 overflow-hidden"}
+          className={
+            "w-[90%] center-x relative duration-300 overflow-hidden md:block hidden"
+          }
         >
           {commands?.map((e, i) => {
             return (

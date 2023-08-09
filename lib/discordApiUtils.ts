@@ -21,7 +21,7 @@ export async function getCommands(): Promise<DiscordAPICommand[]> {
  * Get guild roles from discord api using the bot token from .env
  * @param guildId discord server id
  */
-export async function getGuildRoles(guildId: string): Promise<Role> {
+export async function getGuildRoles(guildId: string): Promise<Role[]> {
   const res = await axios.get(
     `https://discord.com/api/guilds/${guildId}/roles`,
     {
@@ -30,7 +30,7 @@ export async function getGuildRoles(guildId: string): Promise<Role> {
       },
     }
   );
-  return res.data as Role;
+  return res.data as Role[];
 }
 /**
  * Get guild memebers from discord api using the bot token from .env

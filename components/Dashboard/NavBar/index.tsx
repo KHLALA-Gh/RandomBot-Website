@@ -6,7 +6,8 @@ import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-interface DashBoardNavBarProps {
+import ServerOption from "./options/server";
+export interface DashBoardNavBarProps {
   data?: Guild;
   isLoading: boolean;
   config?: GeneralConfig;
@@ -20,7 +21,7 @@ export default function DashboardNavBar({
   const router = useRouter();
   return (
     <>
-      <div className="h-screen w-[350px] bg-[#35373C] rounded-r-md pt-7 ps-5 pr-5 relative pb-7  flex flex-col">
+      <div className="md:flex hidden h-screen w-[350px] bg-[#35373C] rounded-r-md pt-7 ps-5 pr-5 relative pb-7  flex-col">
         <div>
           <div className="flex justify-center">
             <div
@@ -31,7 +32,7 @@ export default function DashboardNavBar({
             >
               {data?.icon && (
                 <Image
-                  src={data.icon}
+                  src={`https://cdn.discordapp.com/icons/${data.id}/${data.icon}.png`}
                   className={"rounded-full"}
                   alt=""
                   width={128}
@@ -40,7 +41,7 @@ export default function DashboardNavBar({
               )}
               {!data?.icon && (
                 <h1 className="text-center center-y h-fit">
-                  {data?.name.split(" ").map((e, i) => {
+                  {data?.name?.split(" ").map((e, i) => {
                     if (i > 2) return "";
                     return e[0];
                   })}
@@ -59,6 +60,7 @@ export default function DashboardNavBar({
         </div>
         <div className="rounded-md border-2 mt-7 border-main p-5 flex-grow overflow-y-scroll op">
           <div className="">
+            <ServerOption />
             <Commands commands={config?.commands as string[]} />
             <Quiz quiz={[]} />
           </div>

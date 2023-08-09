@@ -16,12 +16,12 @@ export default function Save({
     <>
       <div
         className={
-          "rounded-md bg-dc p-5 flex justify-between sticky drop-shadow-xl duration-500 save-tr items-center " +
+          "rounded-md bg-dc p-5 flex md:justify-between md:flex-row flex-col justify-center sticky drop-shadow-xl duration-500 save-tr items-center " +
           (show ? "bottom-7 opacity-100" : "bottom-[-100%] opacity-0")
         }
       >
         <h1>Do you want to save these changes ?</h1>
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center md:mt-0 mt-3">
           <h1 onClick={reset} className="cursor-pointer">
             Reset
           </h1>

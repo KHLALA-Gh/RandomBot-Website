@@ -15,15 +15,18 @@ export default function Quiz({ quiz }: QuizProps) {
   return (
     <>
       <div className="relative">
-        <div className="flex hover:bg-[#ffffff56] justify-between p-3 rounded-md cursor-pointer">
-          <div className="flex gap-5 items-center">
+        <div className="flex hover:bg-[#ffffff56] justify-center md:justify-between md:p-3 rounded-md cursor-pointer md:pt-0 md:pb-0 pt-3 pb-3">
+          <div className="flex gap-5 items-center md:justify-start justify-center">
             <FontAwesomeIcon
               icon={faGamepad}
-              className={`w-[20px] text-main`}
+              className={`md:w-[20px] text-main md:text-[16px] text-[30px]`}
             />
-            <h1 className="text-main">Quiz</h1>
+            <h1 className="text-main md:block hidden">Quiz</h1>
           </div>
-          <div className="text-main" onClick={() => setOpen(!open)}>
+          <div
+            className="text-main md:block hidden"
+            onClick={() => setOpen(!open)}
+          >
             <FontAwesomeIcon
               icon={faChevronDown}
               className={`duration-300 ${open ? "rotate-180" : ""}`}
@@ -31,7 +34,9 @@ export default function Quiz({ quiz }: QuizProps) {
           </div>
         </div>
         <div
-          className={"w-[90%] center-x relative duration-300 overflow-hidden"}
+          className={
+            "w-[90%] center-x relative duration-300 overflow-hidden md:block hidden"
+          }
         >
           {quiz?.map((e, i) => {
             if (e === "_id") return "";
