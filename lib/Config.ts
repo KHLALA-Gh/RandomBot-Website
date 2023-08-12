@@ -140,18 +140,23 @@ export function isQuizConfig(configName: keyof QuizConfig, data: any): boolean {
     return false;
   } else if (configName === "multiple_channels") {
     if (typeof data !== "object") return false;
+    delete data._id;
     if (!(Object.keys(data).length >= 2 && Object.keys(data).length <= 4))
       return false;
+
     if (typeof data.enable !== "boolean" || typeof data.private !== "object")
       return false;
+
     if (
       data.category_name !== undefined &&
       typeof data.category_name !== "string"
     )
       return false;
+
     if (data.category_id !== undefined && typeof data.category_id !== "string")
       return false;
     if (Object.keys(data.private).length !== 2) return false;
+
     if (
       typeof data.private.enable !== "boolean" ||
       !(data.private.viewChannel instanceof Array)
