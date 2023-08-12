@@ -115,12 +115,20 @@ export default function Page(props: {
           setCommandError(`command /${props?.params?.name} is not found`);
           return;
         }
-        setCommand(
-          data.commands.filter((c) => c.name === props.params.name)[0]
-        );
-        setCurrentCommand(
-          data.commands.filter((c) => c.name === props.params.name)[0]
-        );
+        const command = data.commands.filter(
+          (c) => c.name === props.params.name
+        )[0];
+        for (let i = 0; i < command.rolesId.length; i++) {
+          let valid = false;
+          for (let j = 0; j < data.roles.length; j++) {
+            if (command.rolesId[i] === data.roles[j].id) valid = true;
+          }
+          if (!valid) {
+            command.rolesId.splice(i, 1);
+          }
+        }
+        setCommand(command);
+        setCurrentCommand(command);
       }, 100);
     }
   }, [data]);
@@ -181,17 +189,14 @@ export default function Page(props: {
                   <div className="flex flex-col gap-5">
                     <ArrayData
                       name={"permissions"}
-                      url={`/dashboard/server/commands/${props.params.name}/permissions?id=${props.searchParams.id}`}
                       onClickAdd={() => setPermissions(true)}
                     />
                     <ArrayData
                       name={"Roles"}
-                      url={`/dashboard/server/commands/${props.params.name}/roles?id=${props.searchParams.id}`}
                       onClickAdd={() => setShowRoles(true)}
                     />
                     <ArrayData
                       name={"Banned Users"}
-                      url={`/dashboard/server/commands/${props.params.name}/banned-users?id=${props.searchParams.id}`}
                       onClickAdd={() => setBannedUsers(true)}
                     />
                   </div>
