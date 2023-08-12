@@ -1,3 +1,4 @@
+"use client";
 import Switch from "@/components/utils/switch";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
