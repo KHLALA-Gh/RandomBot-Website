@@ -6,6 +6,7 @@ interface Config {
 interface GeneralConfig {
   version: string;
   commands: string[];
+  quiz: QuizGeneralConfig<QuizGeneralConfigType>[];
 }
 
 type QuizGeneralConfigType =
@@ -22,11 +23,22 @@ type QuizGeneralConfigType =
   /**This type of config can be array*/
   | "container"
   /** This type of config has sub configurations */
-  | "object";
+  | "object"
+  /** This type of config has choices */
+  | "select";
 
 type QuizGeneralConfig<ConfigT extends QuizGeneralConfigType> = {
   key: string;
   name: string;
   configType: ConfigT;
-  data: any[] | string | number | boolean | object | `${number}`;
+  structure: ConfigT extends "container" | "object"
+    ? {
+        key: string;
+        name: string;
+        configType: QuizGeneralConfigType;
+        choices: any[];
+      }[]
+    : null;
+  data: any;
+  choices: ConfigT extends "select" ? any[] : never;
 };

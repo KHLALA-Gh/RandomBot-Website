@@ -62,7 +62,9 @@ export default function DashboardNavBar({
           <div className="">
             <ServerOption />
             <Commands commands={config?.commands as string[]} />
-            <Quiz quiz={[]} />
+            <Quiz
+              quiz={config?.quiz as QuizGeneralConfig<QuizGeneralConfigType>[]}
+            />
           </div>
         </div>
         <div

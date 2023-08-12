@@ -16,7 +16,7 @@ export default function Save({
     <>
       <div
         className={
-          "rounded-md bg-dc p-5 flex md:justify-between md:flex-row flex-col justify-center sticky drop-shadow-xl duration-500 save-tr items-center " +
+          "rounded-md bg-dc p-5 flex md:justify-between md:flex-row flex-col justify-center sticky drop-shadow-xl duration-500 save-tr items-center z-[9998] " +
           (show ? "bottom-7 opacity-100" : "bottom-[-100%] opacity-0")
         }
       >

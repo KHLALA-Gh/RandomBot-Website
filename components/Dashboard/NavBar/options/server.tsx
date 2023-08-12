@@ -9,7 +9,7 @@ export default function ServerOption() {
     <>
       <Link href={`/dashboard/server?id=${searchParams.get("id")}`}>
         <div className="relative">
-          <div className="flex hover:bg-[#ffffff56] justify-center md:justify-between md:p-3 rounded-md cursor-pointer md:pt-0 md:pb-0 pt-3 pb-3">
+          <div className="flex hover:bg-[#ffffff56] justify-center md:justify-between md:p-3 rounded-md cursor-pointer pt-3 pb-3">
             <div className="flex gap-5 items-center md:justify-start justify-center">
               <FontAwesomeIcon
                 icon={faDashboard}

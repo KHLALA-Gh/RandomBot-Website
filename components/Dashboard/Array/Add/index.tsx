@@ -46,7 +46,9 @@ export default function Add<DataT extends DataType>({
                   key={i}
                   className={
                     "bg-[#1F1F1F] rounded-md p-5 flex gap-5 cursor-pointer " +
-                    (init.indexOf(role.id) !== -1 ? "border-2 border-main" : "")
+                    (init?.indexOf(role.id) !== -1
+                      ? "border-2 border-main"
+                      : "")
                   }
                 >
                   <div
@@ -69,7 +71,7 @@ export default function Add<DataT extends DataType>({
                   key={i}
                   className={
                     "bg-[#1F1F1F] rounded-md p-5 flex gap-5 cursor-pointer items-center " +
-                    (init.indexOf(member?.user?.id) !== -1
+                    (init?.indexOf(member?.user?.id) !== -1
                       ? "border-2 border-main"
                       : "")
                   }

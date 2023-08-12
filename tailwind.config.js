@@ -19,6 +19,7 @@ module.exports = {
         main: "#14FF00",
         sleep: "#AEAEAE",
         dc: "#35373C",
+        arr: "#1F1F1F",
       },
       fontFamily: {
         main: "Main",
