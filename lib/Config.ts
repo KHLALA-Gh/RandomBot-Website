@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { connectDB } from "./connectDB";
 import { getServer } from "./Servers";
+import { getGuildRoles } from "./discordApiUtils";
 
 export const PermissionFlagsBits = [
   "CreateInstantInvite",
@@ -128,4 +129,69 @@ export async function updateCommandConfig(
   throw new Error(
     `command with name=${name} is not found in server id=${serverId}`
   );
+}
+
+export function isQuizConfig(configName: keyof QuizConfig, data: any): boolean {
+  if (configName === "customGames") {
+    if (typeof data === "boolean") return true;
+    return false;
+  } else if (configName === "gameStart") {
+    if ([0, 1, 2, 3].indexOf(data) !== -1) return true;
+    return false;
+  } else if (configName === "multiple_channels") {
+    if (typeof data !== "object") return false;
+    if (!(Object.keys(data).length >= 2 && Object.keys(data).length <= 4))
+      return false;
+    if (typeof data.enable !== "boolean" || typeof data.private !== "object")
+      return false;
+    if (
+      data.category_name !== undefined &&
+      typeof data.category_name !== "string"
+    )
+      return false;
+    if (data.category_id !== undefined && typeof data.category_id !== "string")
+      return false;
+    if (Object.keys(data.private).length !== 2) return false;
+    if (
+      typeof data.private.enable !== "boolean" ||
+      !(data.private.viewChannel instanceof Array)
+    )
+      return false;
+    for (let i = 0; i < data.private.viewChannel.length; i++) {
+      if (typeof data.private.viewChannel[i] !== "string") return false;
+    }
+    return true;
+  } else if (configName === "roles") {
+    if (!(data instanceof Array)) return false;
+    if (data.length > 1000) return false;
+    for (let i = 0; i < data.length; i++) {
+      if (typeof data[i] !== "object") return false;
+      if (!data[i]) return false;
+      if (
+        Object.keys(data[i]).length !== 2 &&
+        Object.keys(data[i]).length !== 3
+      )
+        return false;
+
+      if (typeof data[i].id !== "string" || !data[i].id) return false;
+      if (
+        typeof data[i].gamesPerUser !== "number" ||
+        isNaN(data[i].gamesPerUser)
+      )
+        return false;
+      if (
+        Object.keys(data[i]).length === 3 &&
+        typeof data[i].playQzgame !== "boolean"
+      )
+        return false;
+    }
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data.length; j++) {
+        if (i === j) continue;
+        if (data[i].id === data[j].id) return false;
+      }
+    }
+    return true;
+  }
+  return false;
 }
