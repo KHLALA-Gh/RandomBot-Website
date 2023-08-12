@@ -39,6 +39,7 @@ export async function GET(req: NextRequest) {
       roles,
       members,
       commands: server?.config.commands as CommandConfig[],
+      quiz: server.config.quiz,
     };
     return NextResponse.json(allGuildInfo, { status: 200 });
   } catch (err: any) {

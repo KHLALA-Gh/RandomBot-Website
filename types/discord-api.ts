@@ -90,4 +90,5 @@ interface AllGuildInfo extends Guild {
   roles: Role[];
   members: Member[];
   commands: CommandConfig[];
+  quiz: QuizConfig;
 }
