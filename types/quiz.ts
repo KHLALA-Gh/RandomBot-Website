@@ -1,10 +1,16 @@
+interface MultipleChannels {
+  enable: boolean;
+  category_id?: string;
+  category_name?: string;
+  private: {
+    enable: boolean;
+    viewChannel: string[];
+  };
+}
+
 interface QuizConfig {
-  multiple_channels: boolean;
+  multiple_channels: MultipleChannels;
   customGames?: boolean;
-  channels_category: string;
-  private: boolean;
-  viewChannel: string[];
-  category_name: string;
   gameStart: number;
   roles: Roles[];
 }
