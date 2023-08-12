@@ -5,7 +5,7 @@ import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 interface QuizProps {
-  quiz: string[];
+  quiz: QuizGeneralConfig<QuizGeneralConfigType>[];
 }
 
 export default function Quiz({ quiz }: QuizProps) {
@@ -15,14 +15,16 @@ export default function Quiz({ quiz }: QuizProps) {
   return (
     <>
       <div className="relative">
-        <div className="flex hover:bg-[#ffffff56] justify-center md:justify-between md:p-3 rounded-md cursor-pointer md:pt-0 md:pb-0 pt-3 pb-3">
-          <div className="flex gap-5 items-center md:justify-start justify-center">
-            <FontAwesomeIcon
-              icon={faGamepad}
-              className={`md:w-[20px] text-main md:text-[16px] text-[30px]`}
-            />
-            <h1 className="text-main md:block hidden">Quiz</h1>
-          </div>
+        <div className="flex hover:bg-[#ffffff56] justify-center md:justify-between md:p-3 rounded-md cursor-pointer pt-3 pb-3">
+          <Link href={`/dashboard/server/quiz?id=${searchParams.get("id")}`}>
+            <div className="flex gap-5 items-center md:justify-start justify-center">
+              <FontAwesomeIcon
+                icon={faGamepad}
+                className={`md:w-[20px] text-main md:text-[16px] text-[30px]`}
+              />
+              <h1 className="text-main md:block hidden">Quiz</h1>
+            </div>
+          </Link>
           <div
             className="text-main md:block hidden"
             onClick={() => setOpen(!open)}
@@ -39,22 +41,25 @@ export default function Quiz({ quiz }: QuizProps) {
           }
         >
           {quiz?.map((e, i) => {
-            if (e === "_id") return "";
             return (
               <div
                 key={i}
                 className={"center-x mt-1 mb-1 " + (!open ? "hidden" : "")}
               >
                 <Link
-                  href={`${pathName}?id=${searchParams.get("id")}/quiz/${e}`}
+                  href={`/dashboard/server/quiz/${e.key}?id=${searchParams.get(
+                    "id"
+                  )}`}
                 >
                   <p
                     className={
-                      "text-center text-sleep text-sm" +
-                      (pathName.replace("/", "") === e ? "text-white" : "")
+                      "text-center text-sleep text-sm " +
+                      (pathName.split("/").reverse()[0] === e.key
+                        ? "text-white"
+                        : "")
                     }
                   >
-                    {e}
+                    {e.name}
                   </p>
                 </Link>
               </div>
