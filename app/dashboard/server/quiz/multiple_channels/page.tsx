@@ -11,9 +11,12 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import QuizEnable from "@/components/Dashboard/quiz/Enable";
 export default function Page() {
-  const { data, isLoading, error } = useContext(
-    DashboardContext
-  ) as DashBoardData;
+  const {
+    data,
+    isLoading,
+    error,
+    update: updateData,
+  } = useContext(DashboardContext) as DashBoardData;
   const {
     mutate,
     data: postData,
@@ -105,9 +108,17 @@ export default function Page() {
     compare();
   }, [config]);
   useEffect(() => {
+    if (!postData) return;
     if (postLoading === false) {
       setCurrentConfig(postData);
       setConfig(postData);
+      updateData({
+        ...data,
+        quiz: {
+          ...data.quiz,
+          multiple_channels: postData as MultipleChannels,
+        },
+      });
     }
   }, [postData]);
   return (
