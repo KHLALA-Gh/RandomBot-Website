@@ -44,6 +44,7 @@ export default function Page() {
   }, [data]);
   useEffect(() => {
     if (!data) return;
+    if (typeof postData !== "boolean") return;
     if (postLoading === false) {
       update({
         ...data,
