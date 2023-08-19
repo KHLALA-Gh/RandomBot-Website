@@ -48,3 +48,32 @@ export async function getGuildMembers(guildId: string): Promise<Member[]> {
   );
   return res.data as Member[];
 }
+
+/**
+ * Get a discord channel from discord api using the bot TOKEN from .env
+ * @param id channel id
+ */
+export async function getChannel(id: string): Promise<Channel> {
+  if (!process.env.TOKEN) throw new Error(`Bot TOKEN is required`);
+  const res = await axios.get(`https://discord.com/api/channels/${id}`, {
+    headers: {
+      Authorization: `Bot ${process.env.TOKEN}`,
+    },
+  });
+  return res.data as Channel;
+}
+
+/**
+ * Get a discord user from discord api using the bot TOKEN from .env
+ * @param userId
+ * @returns Discord user data
+ */
+export async function getUser(userId: string): Promise<User> {
+  if (!process.env.TOKEN) throw new Error(`Bot TOKEN is required`);
+  const res = await axios.get(`https://discord.com/api/users/${userId}`, {
+    headers: {
+      Authorization: `Bot ${process.env.TOKEN}`,
+    },
+  });
+  return res.data as User;
+}

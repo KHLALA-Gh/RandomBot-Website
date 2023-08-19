@@ -91,4 +91,25 @@ interface AllGuildInfo extends Guild {
   members: Member[];
   commands: CommandConfig[];
   quiz: QuizConfig;
+  games: QzGame[];
+}
+
+interface Channel {
+  id: string;
+  type: number;
+  last_message_id: string;
+  flags: 0;
+  guild_id: string;
+  name: string;
+  parent_id: string;
+  position: number;
+  permission_overwrites: {
+    id: string;
+    type: "role" | "member";
+    allow: number;
+    deny: 0;
+    allow_new: number;
+    deny_new: string;
+  }[];
+  [key: string]: any;
 }
