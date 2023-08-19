@@ -1,6 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getGuildByUser, getServer } from "@/lib/Servers";
 import { getGuildMembers, getGuildRoles } from "@/lib/discordApiUtils";
+import { getServerGames } from "@/lib/randomBotExpressServer";
 import { AxiosError } from "axios";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -34,12 +35,17 @@ export async function GET(req: NextRequest) {
       });
     const roles = await getGuildRoles(id);
     const members = await getGuildMembers(id);
+    const games = await getServerGames(
+      guild.id,
+      session.user.accessToken as string
+    );
     const allGuildInfo: AllGuildInfo = {
       ...guild,
       roles,
       members,
       commands: server?.config.commands as CommandConfig[],
       quiz: server.config.quiz,
+      games,
     };
     return NextResponse.json(allGuildInfo, { status: 200 });
   } catch (err: any) {
