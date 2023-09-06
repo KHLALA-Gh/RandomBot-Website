@@ -80,3 +80,16 @@ body {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   z-index: 9999;
 }
+
+.rotate-anim {
+  animation: rotate-anim 1s infinite;
+}
+
+@keyframes rotate-anim {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}

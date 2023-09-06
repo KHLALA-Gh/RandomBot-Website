@@ -25,4 +25,6 @@ interface QzGame {
   guildId: string;
   difficulty?: string;
   bannedPlayers: string[];
+  invitedMembers: string[];
+  hostId: string;
 }

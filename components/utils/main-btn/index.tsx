@@ -1,6 +1,8 @@
+import React from "react";
+
 interface ButtonProps {
   className?: string;
-  children?: JSX.Element | string;
+  children?: React.ReactNode;
   disabled?: boolean;
   onClick?: () => any;
 }

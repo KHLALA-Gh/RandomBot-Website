@@ -4,6 +4,7 @@ interface Guild {
   name: string;
   owner: boolean;
   permissions: string;
+  [key: string]: any;
 }
 
 declare const PermissionFlagsBits: {

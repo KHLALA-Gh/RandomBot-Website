@@ -24,6 +24,7 @@ export interface DashBoardData {
   error?: AxiosError;
   update: Dispatch<SetStateAction<AllGuildInfo | undefined>>;
   fetch: () => void;
+  isFetching: boolean;
 }
 
 export const DashboardContext = createContext<DashBoardData | null>(null);
@@ -41,6 +42,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     error: guildError,
     isLoading,
     refetch,
+    isFetching,
   } = useAllGuildInfo(params.get("id") as string);
   const [guild, setGuild] = useState(data);
   useEffect(() => {
@@ -80,6 +82,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                           error: guildError as AxiosError,
                           update: setGuild,
                           fetch: refetch,
+                          isFetching,
                         }}
                       >
                         {children}
@@ -98,7 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                           <br />
                           {
                             (
-                              (guildError as AxiosError).response?.data as {
+                              (guildError as AxiosError)?.response?.data as {
                                 message: string;
                               }
                             )?.message

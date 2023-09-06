@@ -1,6 +1,22 @@
 import axios from "axios";
 
 /**
+ * get a guild using the bot TOKEN
+ * @returns Guild
+ */
+export async function getGuild(serverId: string): Promise<Guild> {
+  if (!process.env.TOKEN) throw new Error(`Bot TOKEN is required`);
+  const guild = (
+    await axios.get(`https://discord.com/api/guilds/${serverId}`, {
+      headers: {
+        Authorization: `Bot ${process.env.TOKEN}`,
+      },
+    })
+  ).data;
+  return guild;
+}
+
+/**
  * Get Bot commands from discord api using the bot token from .env
  */
 export async function getCommands(): Promise<DiscordAPICommand[]> {

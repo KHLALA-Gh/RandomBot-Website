@@ -8,10 +8,42 @@ export async function getServerGames(
   serverId: string,
   accessToken: string
 ): Promise<QzGame[]> {
-  const res = await axios.get(`https://randombot--khlala.repl.co/${serverId}`, {
+  if (!process.env.ES) throw Error(`ES is undefined`);
+  const res = await axios.get(`${process.env.ES}/${serverId}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
   return res.data;
+}
+
+/**
+ * Request RandomBot express server to delete all the games in the a server
+ * @param serverId Guild ID
+ * @returns response
+ */
+export async function deleteAllGames(serverId: string, accessToken: string) {
+  if (!process.env.ES) throw new Error(`ES is required`);
+  const res = (
+    await axios.delete(process.env.ES + `/${serverId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+  ).data;
+  return res;
+}
+
+/**
+ *
+ */
+
+export async function deleteGame(
+  serverId: string,
+  gameId: string,
+  accessToken: string
+) {
+  return (
+    await axios.delete(process.env.ES + `/${serverId}/${gameId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    })
+  ).data;
 }
