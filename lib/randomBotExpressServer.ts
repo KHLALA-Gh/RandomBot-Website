@@ -33,7 +33,7 @@ export async function deleteAllGames(serverId: string, accessToken: string) {
 }
 
 /**
- *
+ * Send a Request to RandomBot express server to delete a game in a server
  */
 
 export async function deleteGame(
@@ -45,5 +45,26 @@ export async function deleteGame(
     await axios.delete(process.env.ES + `/${serverId}/${gameId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
+  ).data;
+}
+
+/**
+ * Send a Request to RandomBot express server to delete games in a server
+ */
+export async function deleteGames(
+  serverId: string,
+  gamesId: string[],
+  accessToken: string
+) {
+  return (
+    await axios.post(
+      process.env.ES + `/${serverId}/delete`,
+      {
+        games: gamesId,
+      },
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    )
   ).data;
 }
