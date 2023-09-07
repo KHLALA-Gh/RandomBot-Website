@@ -25,7 +25,13 @@ export default function Page({ searchParams }: Props) {
       setGames(data.games);
     }
   }, [data]);
-  const { mutate, isLoading: isDeleted } = useMutation({
+  const {
+    mutate,
+    isLoading: isLoadingDeleteAll,
+    error: deleteAllError,
+    isError: deleteAllIsError,
+    isSuccess: isSuccessDeleteAll,
+  } = useMutation({
     mutationKey: ["deleteAll", data?.id],
     mutationFn: async () => {
       return await axios.delete(`/api/servers/${data?.id}/games`);
@@ -34,6 +40,7 @@ export default function Page({ searchParams }: Props) {
   const [ctrlMode, setCtrlMode] = useState<boolean>();
   const [selectedGames, setSelectedGames] = useState<string[]>([]);
   const [showDl, setShowDl] = useState<boolean>();
+  const [showDlAll, setDlAll] = useState<boolean>();
   const {
     mutate: mutateDelete,
     isError,
@@ -67,17 +74,26 @@ export default function Page({ searchParams }: Props) {
       update({
         ...data,
         games: games?.filter((g) => {
-          selectedGames.indexOf(g.hostId) === -1;
+          return selectedGames.indexOf(g.hostId) === -1;
         }) as QzGame[],
       });
       setSelectedGames([]);
       setShowDl(false);
     }
   }, [isSuccess]);
+  useEffect(() => {
+    if (isSuccessDeleteAll) {
+      setDlAll(false);
+      update({
+        ...data,
+        games: [],
+      });
+    }
+  }, [isSuccessDeleteAll]);
   return (
     <>
       <div
-        className="p-5 h-screen"
+        className="p-5 mb-16"
         onClick={() => {
           if (!ctrlMode) {
             setSelectedGames([]);
@@ -97,7 +113,10 @@ export default function Page({ searchParams }: Props) {
           {!data && (
             <div className="w-[128px] h-[128px] loading rounded-full"></div>
           )}
-          <h1 className="text-[40px]">{data?.name}</h1>
+          <h1 className="text-[40px]">
+            {data?.name?.slice(0, 12)}
+            {data?.name.length > 12 ? "..." : ""}
+          </h1>
           <p>{games?.length} Games</p>
 
           <MainBtn
@@ -113,16 +132,16 @@ export default function Page({ searchParams }: Props) {
               className={"ms-2 " + (isFetching ? "rotate-anim" : "")}
             />
           </MainBtn>
-        </div>
-        <div>
           <button
-            disabled={isDeleted}
-            className="ps-5 pr-5 pt-2 pb-2 bg-red-600 text-white rounded-md mt-10"
+            disabled={games?.length === 0}
+            className={
+              "ps-5 pr-5 pt-2 pb-2 text-white rounded-md " +
+              (games?.length !== 0 ? "bg-red-600" : "bg-red-900")
+            }
             onClick={() => {
-              mutate();
-              setTimeout(() => {
-                fetch();
-              }, 1500);
+              if (games?.length) {
+                setDlAll(true);
+              }
             }}
           >
             Delete All
@@ -212,6 +231,22 @@ export default function Page({ searchParams }: Props) {
           }
           isError={isError}
           gamesLength={selectedGames.length}
+        />
+      )}
+      {showDlAll && (
+        <DeleteGames
+          isLoading={isLoadingDeleteAll}
+          onDelete={mutate}
+          onCancel={() => {
+            setDlAll(false);
+          }}
+          error={
+            deleteAllError instanceof AxiosError
+              ? `[${deleteAllError.response?.status}] ${deleteAllError.response?.statusText}`
+              : "An unexpected error occurred"
+          }
+          isError={deleteAllIsError}
+          gamesLength={games?.length as number}
         />
       )}
     </>
