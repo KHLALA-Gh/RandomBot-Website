@@ -17,6 +17,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useSearchParams } from "next/navigation";
 import { DashBoardData, DashboardContext } from "@/app/dashboard/server/layout";
+import "./style.css";
 interface Game {
   creator: {
     name: string;
@@ -30,7 +31,7 @@ interface Game {
   difficulty: string;
   status: "started" | "ended" | "waiting";
   hostId: string;
-  onClick: () => any;
+  onClick: (ctrlMode?: boolean) => any;
   selected: boolean;
 }
 
@@ -60,6 +61,8 @@ export default function Game({
   const [showDl, setShowDl] = useState<boolean>();
   const [isShifted, setIsShifted] = useState<boolean>(false);
   const [isS, setIsS] = useState<boolean>(false);
+  const [holdMode, setHoldMode] = useState<boolean>();
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>();
   const sHandlerDown = (e: any) => {
     setIsS(e.shiftKey);
   };
@@ -75,19 +78,29 @@ export default function Game({
       });
     }
   }, [isSuccess]);
+
   const ref = useRef() as MutableRefObject<HTMLDivElement>;
+
   return (
     <>
       <div
-        onClick={onClick}
         ref={ref}
         onMouseDown={(e) => {
           if (e.shiftKey) {
             mutate();
           }
+          setHoldMode(false);
+          const id = setTimeout(() => {
+            setHoldMode(true);
+          }, 300);
+          setTimeoutId(id);
+          console.log("down");
         }}
         onMouseUp={(e) => {
           setIsShifted(false);
+          console.log("up");
+          console.log(holdMode);
+          onClick(holdMode);
         }}
         className={
           "p-3 flex w-full rounded-md hover:bg-[#fff5] cursor-pointer select-none " +
@@ -105,7 +118,7 @@ export default function Game({
           setShowOp(false);
         }}
       >
-        <div className="grid grid-cols-4 items-center w-full">
+        <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 items-center w-full">
           <div className="flex gap-3 items-center justify-center">
             <div
               className="w-4 h-4 rounded-full"
@@ -119,7 +132,7 @@ export default function Game({
                   : "#edff00",
               }}
             ></div>
-            <h1 className="text-xl">
+            <h1 className="text-xl status">
               {!isLoading && status}
               {isLoading && "Deleting "}
               {isLoading && <FontAwesomeIcon icon={faSpinner} spinPulse />}
@@ -136,10 +149,10 @@ export default function Game({
 
             <h1>{creator.name}</h1>
           </div>
-          <h1 className="text-center">
+          <h1 className="text-center lg:block hidden">
             {playersLength} / {maxPlayers}
           </h1>
-          <h1 className="text-center text-sm">
+          <h1 className="text-center text-sm xl:block hidden">
             {category}/{amount}/{difficulty}
           </h1>
         </div>
@@ -152,7 +165,7 @@ export default function Game({
           {!isShifted && <FontAwesomeIcon icon={faEllipsisV} />}
           <div
             className={
-              "rounded-md bg-arr absolute top-10 w-36 z-10 " +
+              "rounded-md bg-arr absolute top-10 sm:left-[-90px] left-[-120px] w-36 z-10 " +
               (showOp ? "block" : "hidden")
             }
           >

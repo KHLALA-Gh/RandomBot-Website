@@ -1,0 +1,9 @@
+.status {
+  font-size: 20px;
+}
+
+@media (max-width: 389px) {
+  .status {
+    font-size: 16px;
+  }
+}

@@ -93,17 +93,17 @@ export default function Page({ searchParams }: Props) {
   return (
     <>
       <div
-        className="p-5 mb-16"
+        className="sm:p-5 p-2 mb-16"
         onClick={() => {
           if (!ctrlMode) {
             setSelectedGames([]);
           }
         }}
       >
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center lg:flex-nowrap flex-wrap">
           {data && (
             <Image
-              className="rounded-full"
+              className="rounded-full md:w-32 md:h-32 w-16 h-16"
               alt="server img"
               src={`https://cdn.discordapp.com/icons/${data?.id}/${data?.icon}.png`}
               width={128}
@@ -113,7 +113,7 @@ export default function Page({ searchParams }: Props) {
           {!data && (
             <div className="w-[128px] h-[128px] loading rounded-full"></div>
           )}
-          <h1 className="text-[40px]">
+          <h1 className="lg:text-[40px] md:text-[30px]">
             {data?.name?.slice(0, 12)}
             {data?.name.length > 12 ? "..." : ""}
           </h1>
@@ -121,7 +121,8 @@ export default function Page({ searchParams }: Props) {
 
           <MainBtn
             className={
-              "text-white " + (isFetching ? "!bg-[#1b5920]" : "!bg-[#0bc119]")
+              "text-white sm:text-[16px] text-sm sm:ps-5 sm:pr-5 ps-3 pr-3 " +
+              (isFetching ? "!bg-[#1b5920]" : "!bg-[#0bc119]")
             }
             disabled={isFetching}
             onClick={fetch}
@@ -148,11 +149,19 @@ export default function Page({ searchParams }: Props) {
           </button>
         </div>
 
-        <div className="grid coll grid-cols-4 mt-16 relative mb-7">
-          <h1 className="text-main text-center text-xl">Status</h1>
-          <h1 className="text-main text-center text-xl">Creator</h1>
-          <h1 className="text-main text-center text-xl">PLayers</h1>
-          <h1 className="text-main text-center text-xl">C/A/D</h1>
+        <div className="grid coll lg:grid-cols-3 grid-cols-2 xl:grid-cols-4 mt-16 relative mb-7">
+          <h1 className="text-main text-center text-[16px] sm:text-xl">
+            Status
+          </h1>
+          <h1 className="text-main text-center text-[16px] sm:text-xl">
+            Creator
+          </h1>
+          <h1 className="text-main text-center text-[16px] sm:text-xl hidden lg:!block">
+            PLayers
+          </h1>
+          <h1 className="text-main text-center text-[16px] sm:text-xll hidden xl:!block">
+            C/A/D
+          </h1>
         </div>
         <div>
           {games?.map((game, i) => {
@@ -169,13 +178,17 @@ export default function Page({ searchParams }: Props) {
               .filter((g) => g)[0];
             return (
               <Game
-                onClick={() => {
-                  if (ctrlMode) {
+                onClick={(c) => {
+                  if (ctrlMode || c) {
+                    setCtrlMode(true);
                     if (selectedGames.indexOf(game.hostId) !== -1) {
+                      console.log("remove");
+
                       setSelectedGames(
                         selectedGames.filter((id) => id !== game.hostId)
                       );
                     } else {
+                      console.log("set");
                       setSelectedGames([...selectedGames, game.hostId]);
                     }
                   } else {
@@ -215,6 +228,15 @@ export default function Page({ searchParams }: Props) {
           className="ps-5 pr-5 pt-2 pb-2 bg-red-600 text-white rounded-md mt-3"
         >
           Delete
+        </button>
+        <button
+          onClick={() => {
+            setSelectedGames([]);
+            setCtrlMode(false);
+          }}
+          className="bg-gray-500 ps-5 pr-5 pt-2 pb-2 rounded-md ms-3 text-white"
+        >
+          Cancel
         </button>
       </div>
       {showDl && (
