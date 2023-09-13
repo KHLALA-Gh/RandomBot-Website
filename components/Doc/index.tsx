@@ -16,7 +16,13 @@ export default function Doc({ img, title, redirect }: DocProps) {
       className="bg-[#35373C] relative rounded-md p-7 hover:scale-105 hover:drop-shadow-main duration-300 cursor-pointer"
     >
       <div className="w-full relative">
-        <Image src={img} alt="img" width={0} height={250} className="w-full" />
+        <Image
+          className="center-x"
+          src={img}
+          alt="img"
+          width={256}
+          height={256}
+        />
       </div>
       <h1 className="text-2xl mt-5">{title}</h1>
     </div>

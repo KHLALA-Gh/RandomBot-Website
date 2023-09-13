@@ -86,19 +86,19 @@ const Page = () => {
             <h1 className="text-center text-[48px] text-main">Docs</h1>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-10 mt-10 p-7">
               <Doc
-                redirect="/docs#configs"
-                title="How to configure RandomBot"
-                img="/img/config.svg"
+                redirect="/docs?url=1.-Get-Started"
+                title="Get Started with RandomBot"
+                img="/img/rnd.png"
               />
               <Doc
-                redirect="/docs#create_quizgame"
+                redirect="/docs?url=2.-How-to-create-a-quiz-game"
                 title="How to create a quiz game"
                 img="/img/cr_game.svg"
               />
               <Doc
-                redirect="/docs#cr_rnd"
-                title="How to make your own RandomBot"
-                img="/img/src.svg"
+                redirect="/docs?url=3.-Configurations"
+                title="How to configure RandomBot"
+                img="/img/config.svg"
               />
             </div>
             <div className="flex justify-center mt-24 mb-24">
