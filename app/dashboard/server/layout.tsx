@@ -16,6 +16,7 @@ import {
 import { useAllGuildInfo } from "@/hooks/discord-api/useAllGuildInfo";
 import { useRouter } from "next/navigation";
 import DashBoardNavBarMobile from "@/components/Dashboard/NavBar/mobile";
+import { useSession } from "next-auth/react";
 const client = new QueryClient();
 
 export interface DashBoardData {
@@ -30,6 +31,7 @@ export interface DashBoardData {
 export const DashboardContext = createContext<DashBoardData | null>(null);
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const { data: session } = useSession();
   const params = useSearchParams();
   const router = useRouter();
   const {
@@ -55,6 +57,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       }
     }
   }, [guildError]);
+  useEffect(() => {
+    if (!session) {
+      router.push("/login");
+    }
+  }, [session]);
   return (
     <>
       <html>
