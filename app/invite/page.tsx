@@ -11,7 +11,7 @@ export default function Page({
   const router = useRouter();
   useEffect(() => {
     router.push(
-      `https://discord.com/api/oauth2/authorize?client_id=1035666318613037217&permissions=8&scope=bot${Object.keys(
+      `https://discord.com/oauth2/authorize?client_id=1035666318613037217&permissions=268436632&scope=bot${Object.keys(
         searchParams
       ).map((e) => `&${e}=${searchParams[e]}`)}`
     );
