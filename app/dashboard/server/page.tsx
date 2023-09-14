@@ -171,7 +171,9 @@ export default function Page({ searchParams }: Props) {
                   return {
                     id: member.user.id,
                     name: member.user.username,
-                    img: `https://cdn.discordapp.com/avatars/${member?.user?.id}/${member?.user?.avatar}.png`,
+                    img: member?.user?.avatar
+                      ? `https://cdn.discordapp.com/avatars/${member?.user?.id}/${member?.user?.avatar}.png`
+                      : "",
                   };
                 }
               })

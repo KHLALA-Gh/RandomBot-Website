@@ -142,7 +142,7 @@ export default function Game({
             <Image
               alt="user img"
               className="border-white border-2 rounded-full"
-              src={creator.img}
+              src={creator.img || "/img/dc_df.png"}
               width={32}
               height={32}
             />
