@@ -230,7 +230,9 @@ export default function Page(props: {
                   if (!command) return;
                   setCommand({
                     ...command,
-                    permissions: command.permissions.filter((p) => p !== p),
+                    permissions: command.permissions.filter(
+                      (p) => p !== permission
+                    ),
                   });
                 }
               }}
