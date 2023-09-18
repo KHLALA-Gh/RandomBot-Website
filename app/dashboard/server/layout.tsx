@@ -54,14 +54,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     if (guildError instanceof AxiosError) {
       if (guildError.response?.status === 302) {
         router.push(guildError.response.data);
+      } else if (guildError.response?.status === 401) {
+        router.push("/login");
       }
     }
   }, [guildError]);
-  useEffect(() => {
-    if (!session) {
-      router.push("/login");
-    }
-  }, [session]);
   return (
     <>
       <html>

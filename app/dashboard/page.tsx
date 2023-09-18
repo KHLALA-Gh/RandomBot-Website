@@ -63,9 +63,14 @@ export default function Page() {
           </div>
         )}
         <div className="mt-16">
-          <Link href={"/logout"}>
-            <MainBtn className="bg-red-600 ms-7">Logout</MainBtn>
-          </Link>
+          <MainBtn
+            className="bg-red-600 ms-7"
+            onClick={() => {
+              window.location.href = "/logout";
+            }}
+          >
+            Logout
+          </MainBtn>
         </div>
       </div>
     </>
